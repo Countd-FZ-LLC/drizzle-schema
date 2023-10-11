@@ -1873,8 +1873,10 @@ export const trainerLeads = mysqlTable(
     ])
       .default('pending')
       .notNull(),
-    // Warning: Can't parse float(11,2) unsigned from database
-    // float(11,2) unsignedType: float(11,2) unsigned("total_revenue").notNull(),
+    totalRevenue: double('total_revenue', {
+      precision: 11,
+      scale: 2,
+    }).notNull(),
     convertedUserId: bigint('converted_user_id', { mode: 'number' }).references(
       () => users.id,
       { onDelete: 'restrict', onUpdate: 'restrict' },
@@ -1929,8 +1931,7 @@ export const trainerLeadEarnings = mysqlTable(
         onDelete: 'restrict',
         onUpdate: 'restrict',
       }),
-    // Warning: Can't parse float(11,2) unsigned from database
-    // float(11,2) unsignedType: float(11,2) unsigned("amount").notNull(),
+    amount: double('amount', { precision: 11, scale: 2 }).notNull(),
     paymentIntentId: varchar('payment_intent_id', { length: 100 }).notNull(),
     createdAt: timestamp('created_at', { mode: 'string' })
       .default('CURRENT_TIMESTAMP')
