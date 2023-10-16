@@ -2341,9 +2341,9 @@ export const userMealGroups = mysqlTable(
       }),
     deliveryAddressFormatted: json('delivery_address_formatted'),
     deliveryTimeFrom: datetime('delivery_time_from', {
-      mode: 'string',
+      mode: 'date',
     }).notNull(),
-    deliveryTimeTo: datetime('delivery_time_to', { mode: 'string' }).notNull(),
+    deliveryTimeTo: datetime('delivery_time_to', { mode: 'date' }).notNull(),
     status: tinyint('status').default(2).notNull(),
     skipMealAdded: boolean('skip_meal_added').default(false),
     dailyMealRemoved: boolean('daily_meal_removed').default(false),
