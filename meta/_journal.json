@@ -15,6 +15,13 @@
       "when": 1696432809657,
       "tag": "0001_whole_the_fury",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1698146783872,
+      "tag": "0002_crazy_skaar",
+      "breakpoints": true
     }
   ]
 }

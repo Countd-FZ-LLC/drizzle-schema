@@ -1,4 +1,4 @@
-import { relations } from 'drizzle-orm';
+import { relations, sql } from 'drizzle-orm';
 import {
   mysqlTable,
   varchar,
@@ -1541,20 +1541,6 @@ export const partners = mysqlTable('partners', {
   updatedAt: timestamp('updated_at', { mode: 'string' }),
 });
 
-export const passwordResets = mysqlTable(
-  'password_resets',
-  {
-    email: varchar('email', { length: 255 }).notNull(),
-    token: varchar('token', { length: 255 }).notNull(),
-    createdAt: timestamp('created_at', { mode: 'string' }),
-  },
-  (table) => {
-    return {
-      emailIdx: index('password_resets_email_index').on(table.email),
-    };
-  },
-);
-
 export const paymentTransactions = mysqlTable(
   'payment_transactions',
   {
@@ -2257,10 +2243,13 @@ export const userGoogleTokens = mysqlTable(
     userId: bigint('user_id', { mode: 'number' })
       .notNull()
       .references(() => users.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
-    expiresAt: bigint('expires_at', { mode: 'number' }),
-    tokenType: varchar('token_type', { length: 200 }),
-    idToken: varchar('id_token', { length: 200 }),
-    scope: varchar('scope', { length: 1000 }).notNull(),
+    createdAt: timestamp('created_at', { mode: 'string' })
+      .notNull()
+      .default(sql`now()`),
+    updatedAt: timestamp('updated_at', { mode: 'string' })
+      .notNull()
+      .default(sql`now()`)
+      .onUpdateNow(),
   },
   (table) => {
     return {
