@@ -1604,6 +1604,20 @@ export const paymentTransactions = mysqlTable(
   },
 );
 
+export const paymentTransactionsRelations = relations(
+  paymentTransactions,
+  ({ one }) => ({
+    order: one(orders, {
+      fields: [paymentTransactions.orderId],
+      references: [orders.id],
+    }),
+    user: one(users, {
+      fields: [paymentTransactions.userId],
+      references: [users.id],
+    }),
+  }),
+);
+
 export const promoCodes = mysqlTable(
   'promo_codes',
   {
@@ -2079,6 +2093,7 @@ export const usersRelations = relations(users, ({ many, one }) => ({
   userAllergies: many(userAllergy),
   activityLogs: many(dailyUserActivityLogs),
   mealGroups: many(userMealGroups),
+  paymentTransactions: many(paymentTransactions),
 }));
 
 export const usersPromoCodes = mysqlTable('users_promo_codes', {
