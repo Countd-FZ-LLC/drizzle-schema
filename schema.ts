@@ -2002,11 +2002,11 @@ export const users = mysqlTable(
     }),
     // you can use { mode: 'date' }, if you want to have Date as type for this column
     birthday: date('birthday', { mode: 'string' }),
-    height: decimal('height', { precision: 8, scale: 2 }),
+    height: double('height', { precision: 8, scale: 2 }),
     heightMeasure: varchar('height_measure', { length: 6 }),
-    weight: decimal('weight', { precision: 8, scale: 2 }),
+    weight: double('weight', { precision: 8, scale: 2 }),
     weightMeasure: varchar('weight_measure', { length: 6 }),
-    weightGoal: decimal('weight_goal', { precision: 8, scale: 2 }),
+    weightGoal: double('weight_goal', { precision: 8, scale: 2 }),
     status: boolean('status').default(true),
     goalId: int('goal_id').references(() => goals.id, {
       onDelete: 'restrict',
