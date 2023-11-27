@@ -1512,6 +1512,21 @@ export const orders = mysqlTable(
   },
 );
 
+export const orderRelations = relations(orders, ({ one }) => ({
+  user: one(users, {
+    fields: [orders.userId],
+    references: [users.id],
+  }),
+  dietPlan: one(dietPlans, {
+    fields: [orders.dietPlanId],
+    references: [dietPlans.id],
+  }),
+  promoCode: one(promoCodes, {
+    fields: [orders.promoCodeId],
+    references: [promoCodes.id],
+  }),
+}));
+
 export const orderNotifications = mysqlTable(
   'order_notifications',
   {
@@ -2094,6 +2109,7 @@ export const usersRelations = relations(users, ({ many, one }) => ({
   activityLogs: many(dailyUserActivityLogs),
   mealGroups: many(userMealGroups),
   paymentTransactions: many(paymentTransactions),
+  orders: many(orders),
 }));
 
 export const usersPromoCodes = mysqlTable('users_promo_codes', {
